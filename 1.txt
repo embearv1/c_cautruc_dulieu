@@ -1,5 +1,3 @@
-*Buổi 1:nếu có j và j+1 thì là bubble sort 
-còn có i và j là select sort
 
 *Buổi 2:
 -Con trỏ

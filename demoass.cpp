@@ -1,17 +1,20 @@
-// Các thu vien can thiet cho chuong trình
+// Các thu vien can thiet cho chuong trinh
 #include <stdio.h>
 #include <math.h>
 #include <string.h>
 #include <stdlib.h>
+
+//Khai bao so luong luu tru toi da cua danh sach nhan vien la 100
 #define sl 100
 
-
+//khai bao 1 kieu du lieu moi la Date
 struct Date
 {
     int ngay;
     int thang;
     int nam;
 };
+//Dat bi danh cho kieu du lieu la date
 typedef struct Date date;
 
 struct NhanVien
@@ -25,6 +28,8 @@ struct NhanVien
     float luong;
     date ngayvao;
 };
+
+
 typedef struct NhanVien nhanvien;
 
 struct DanhSach
@@ -34,6 +39,8 @@ struct DanhSach
 };
 typedef struct DanhSach danhsach;
 
+
+//ham nhap ngay thang
 void nhapngaythang(date &ntn)
 {
     do
@@ -49,6 +56,8 @@ void nhapngaythang(date &ntn)
     printf("\tNhap vao nam:");
     scanf("%d", &ntn.nam);
 }
+
+//ham nhap thong tin cho 1 nhan vien
 void nhap1nv(nhanvien &nv)
 {
     printf("\tNhap vao msnv:");
@@ -72,16 +81,19 @@ void nhap1nv(nhanvien &nv)
     printf("\tNhap vao ngay vao:");
     nhapngaythang(nv.ngayvao);
 }
+
+//ham xuat ngay thang
 void xuatngaythang(date ntn)
 {
     printf("\n\t%d-%d-%d", ntn.ngay, ntn.thang, ntn.nam);
 }
+
+//ham xuat 1 nhan vien
 void xuat1nv(nhanvien nv)
 {
 	printf("\n\tThong tinh nhan vien!");
     printf("\n\tMa so nhan vien:%d", nv.manv);
-    printf("\n\tHo:%s", nv.ho);
-    printf("\n\tTen:%s", nv.ten);
+    printf("\n\tHo va ten:%s %s", nv.ho,nv.ten);
     printf("\n\tNgay thang nam sinh nhan vien:");
     xuatngaythang(nv.namsinh);
     printf("\n\tNoi sinh:%s", nv.noisinh);
@@ -91,6 +103,8 @@ void xuat1nv(nhanvien nv)
     xuatngaythang(nv.ngayvao);
 }
 
+
+//ham nhap so luong va thong tin cua nhan vien trong danh sach
 void nhapdanhsach(danhsach &ds)
 {
     do{
@@ -105,6 +119,8 @@ void nhapdanhsach(danhsach &ds)
         printf("================================================================\n");
     }
 }
+
+//Ham xuat danh sach cac nhan vien
 void xuatdanhsach(danhsach ds)
 {
     printf("\tDanh sach nhan vien:\n");
@@ -116,6 +132,21 @@ void xuatdanhsach(danhsach ds)
     }
 }
 
+
+
+
+//Ham them moi nhan vien tai vi tri chi dinh
+void themnv(danhsach &ds, nhanvien nv, int k)
+{
+    for (int i = ds.n; i > k; i--)
+    {
+        ds.a[i] = ds.a[i - 1];
+    }
+    ds.a[k] = nv;
+    ds.n++;
+}
+
+//Ham tim ten
 void timten(danhsach ds, char *c){
 	int i;
 	int dem=0;
@@ -130,15 +161,8 @@ void timten(danhsach ds, char *c){
 		printf("\n\tKhong tim thay nhan vien");
 	}
 }
-void themnv(danhsach &ds, nhanvien nv, int k)
-{
-    for (int i = ds.n; i > k; i--)
-    {
-        ds.a[i] = ds.a[i - 1];
-    }
-    ds.a[k] = nv;
-    ds.n++;
-}
+
+// ham tim ma nhan vien
 int timMSNV(danhsach ds, int d){
 	int i;
 	for(i=0;i<ds.n;i++){
@@ -149,6 +173,9 @@ int timMSNV(danhsach ds, int d){
 	}
 	return -1;
 }
+
+
+//Ham sap xep bang luong cho nhan vien
 void sapxep(danhsach &ds){
 	  int i, j;
     for (i = 0; i < ds.n - 1; i++) {
@@ -161,6 +188,8 @@ void sapxep(danhsach &ds){
         }
     }	
 }
+
+//Ham xoa nhan vien bat ky theo ma
 void xoanv(danhsach *ds, int d){
 	int vtri = timMSNV(*ds,d);
 	int i;
@@ -170,10 +199,15 @@ void xoanv(danhsach *ds, int d){
 		for(i=vtri;i<ds->n-1;i++){
 			ds->a[i] = ds->a[i+1];
 		}
-		printf("\n\tDa xoa nhan vien tai vi tri:%d",vtri+1);
+		printf("\n\tDa xoa nhan vien tai vi tri:%d/n",vtri+1);
 		ds->n--;
+		printf("\n================================================================\n");
+		xuatdanhsach(*ds);
 	}
 }
+
+
+//Menu cac chuc nang cua chuong trinh
 
 void menu()
 {
@@ -238,8 +272,6 @@ void menu()
             printf("\n\t Moi nhap ma so nhan vien can xoa:");
             scanf("%d",&d);
             xoanv(&ds,d);
-        	printf("\n\tDanh sach nhan vien sau khi xoa!\n");
-            xuatdanhsach(ds);
             break;
         case 0:
             printf("\n\t Ban chon thoat");
@@ -253,6 +285,8 @@ void menu()
     } while (1);
 }
 
+
+//Ham main
 // =================================
 int main()
 {
